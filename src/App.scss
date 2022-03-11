@@ -1,0 +1,23 @@
+.App {
+  background-color: #101729;
+  color: #EDF2F7;
+  min-height: 100vh;
+  font-family: Rajdhani,sans-serif;
+
+  section.main-page {
+    div.tabs {
+      div.tab {
+        flex: 1;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 1.2rem;
+        font-style: italic;
+        font-weight: bold;
+        background-color: #4f49df;
+        padding: 0.5rem;
+        border: 1px solid #4f49df;
+        border-radius: 5px;
+      }
+    }
+  }
+}
