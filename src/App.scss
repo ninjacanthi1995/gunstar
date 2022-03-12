@@ -5,6 +5,8 @@
   font-family: Rajdhani,sans-serif;
 
   section.main-page {
+    gap: 2rem;
+
     div.tabs {
       div.tab {
         flex: 1;
@@ -13,10 +15,274 @@
         font-size: 1.2rem;
         font-style: italic;
         font-weight: bold;
-        background-color: #4f49df;
         padding: 0.5rem;
         border: 1px solid #4f49df;
         border-radius: 5px;
+      }
+
+      div.active {
+        background-color: #4f49df;
+      }
+    }
+
+    div.main {
+      gap: 2rem;
+
+      div.filter {
+        padding-inline: 1rem;
+        gap: 0.5rem;
+
+        div.title {
+          justify-content: space-between;
+          padding-inline: 1rem;
+          align-items: center;
+
+          h2 {
+            font-style: italic;
+            color: #4f49df;
+          }
+
+          p {
+            font-style: italic;
+            font-weight: bold;
+            color: #4f49df;
+            font-size: 0.8rem;
+          }
+        }
+
+        div.token-id {
+          padding-inline: 1rem;
+
+          input {
+            width: 100%;
+            background-color: #101729;
+            border: 1px solid #293655;
+            border-radius: 0.2rem;
+            color: #EDF2F7;
+            font-style: italic;
+            padding: 0.2rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+          }
+        }
+
+        hr {
+          width: 100%;
+          border: none;
+          height: 1px;
+          background-color: #293655;
+        }
+
+        div.type, div.rarity {
+          padding-inline: 1rem;
+          gap: 0.8rem;
+
+          div.label {
+            justify-content: space-between;
+            margin-top: -1rem;
+            align-items: center;
+
+            p.flex {
+              align-items: center;
+              font-style: italic;
+              font-weight: bold;
+              font-size: 0.8rem;
+            }
+
+            p.reset {
+              font-size: 0.9rem;
+              font-style: italic;
+              font-weight: bold;
+              color: #4f49df;
+            }
+          }
+
+          select {
+            background-color: #101729;
+            color: #EDF2F7;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 0.8rem;
+            padding: 0.1rem;
+            border-radius: 0.2rem;
+            border: 1px solid #293655;
+          }
+
+          div.rarities {
+            justify-content: space-between;
+
+            p {
+              width: 6rem;
+              background-color: grey;
+              padding: 0.2rem 0;
+              border-radius: 1rem;
+              font-size: 0.8rem;
+              font-weight: bold;
+              font-style: italic;
+              text-align: center;
+            }
+          }
+        }
+      }
+
+      div.cards-container {
+        gap: 1rem;
+
+        div.top-bar {
+          gap: 1rem;
+          padding-inline: 1rem;
+          align-items: center;
+
+          p {
+            margin-top: 0.3rem;
+            font-weight: bold;
+          }
+
+          div.sort {
+            label {
+              margin-bottom: -0.7rem;
+              margin-left: 0.3rem;
+              padding-left: 0.5rem;
+              padding-right: 1.8rem;
+              z-index: 2;
+              background-color: #101729;
+              width: fit-content;
+              font-size: 0.8rem;
+              color: rgb(160, 174, 192);
+            }
+
+            select {
+              padding: 0.5rem;
+              background-color: #101729;
+              color: #EDF2F7;
+              border-radius: 0.5rem;
+            }
+          }
+
+          div.recharge {
+            gap: 0.3rem;
+            border: 1px solid #4f49df;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            margin-top: 0.3rem;
+            align-items: center;
+
+            img {
+              height: 20px;
+              aspect-ratio: 1;
+            }
+
+            p {
+              margin: 0;
+              color: #4f49df;
+              font-weight: lighter;
+            }
+          }
+        }
+
+        div.cards {
+          flex-wrap: wrap;
+          padding: 0 1rem;
+          gap: 0.5rem;
+          justify-content: center;
+
+          div.card {
+            background-image: url("../public/images/pet-bg.png");
+            background-repeat: no-repeat;
+            background-size: auto;
+            background-position: center;
+            width: 201px;
+            height: 329px;
+            border: 1px solid #293655;
+            border-radius: 0.2rem;
+            padding: 0.3rem 0.5rem;
+            justify-content: space-between;
+
+            div.info {
+              align-items: flex-start;
+              gap: 0.1rem;
+
+              p.rarity {
+                padding: 0 0.5rem;
+                border-radius: 1rem;
+                font-size: 0.7rem;
+              }
+
+              p.normal {
+                background-color: rgb(12, 149, 158);
+              }
+
+              p.rare {
+                background-color: rgb(1, 121, 255);
+              }
+
+              p.elite {
+                background-color: rgb(186, 1, 255);
+              }
+
+              p.type-id {
+                font-weight: bold;
+                font-style: italic;
+                font-size: 1.5rem;
+              }
+
+              p.level {
+                font-weight: bold;
+                font-style: italic;
+                font-size: 0.7rem;
+              }
+            }
+
+            img.pet-img {
+              position: absolute;
+              width: 240.5px;
+              aspect-ratio: 1;
+              margin-left: -1.5rem;
+              margin-top: 1.2rem;
+            }
+
+            div.prices {
+              align-items: center;
+
+              p.dollar {
+                font-weight: bold;
+                font-style: italic;
+                font-size: 0.9rem;
+                color: rgb(62, 81, 124);
+              }
+
+              p.coin {
+                align-items: center;
+                font-weight: bold;
+                font-style: italic;
+                font-size: 1.5rem;
+
+                img {
+                  width: 1.5rem;
+                }
+              }
+
+              button {
+                width: 100%;
+                background-color: rgb(18, 169, 255);
+                color: #EDF2F7;
+                font-weight: bold;
+                font-style: italic;
+                justify-content: space-between;
+                border: none;
+                border-radius: 0.3rem;
+                font-size: 0.9rem;
+                align-items: center;
+                padding: 0.2rem;
+                margin-top: 0.5rem;
+
+                span {
+                  width: 1rem;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
