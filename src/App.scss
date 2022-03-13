@@ -47,6 +47,7 @@
             font-weight: bold;
             color: #4f49df;
             font-size: 0.8rem;
+            cursor: pointer;
           }
         }
 
@@ -94,6 +95,7 @@
               font-style: italic;
               font-weight: bold;
               color: #4f49df;
+              cursor: pointer;
             }
           }
 
@@ -111,15 +113,49 @@
           div.rarities {
             justify-content: space-between;
 
-            p {
+            label {
               width: 6rem;
-              background-color: grey;
               padding: 0.2rem 0;
               border-radius: 1rem;
               font-size: 0.8rem;
               font-weight: bold;
               font-style: italic;
               text-align: center;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+
+              input {
+                opacity: 0;
+              }
+
+              input.type-input:checked {
+                opacity: 1;
+              }
+            }
+
+            label.normal {
+              background-color: #0c959e;
+
+              input {
+                accent-color: #0c959e;
+              }
+            }
+
+            label.rare {
+              background-color: #0179ff;
+
+              input {
+                accent-color: #0179ff;
+              }
+            }
+
+            label.elite {
+              background-color: #ba01ff;
+
+              input {
+                accent-color: #ba01ff;
+              }
             }
           }
         }
@@ -180,13 +216,14 @@
           }
         }
 
-        div.cards {
+        div.pets, div.eggs {
           flex-wrap: wrap;
           padding: 0 1rem;
           gap: 0.5rem;
           justify-content: center;
+          //display: none;
 
-          div.card {
+          div.card, div.egg {
             background-image: url("../public/images/pet-bg.png");
             background-repeat: no-repeat;
             background-size: auto;
@@ -282,6 +319,34 @@
               }
             }
           }
+        }
+
+        div.eggs {
+          display: none;
+        }
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+        margin-inline: auto;
+        font-size: 0.8rem;
+
+        li {
+          cursor: pointer;
+          width: 2rem;
+          aspect-ratio: 1;
+          display: grid;
+          place-items: center;
+        }
+
+        li:hover {
+          opacity: 0.6;
+        }
+
+        li.active {
+          background-color: rgba(255, 255, 255, 0.08);
+          border-radius: 50%;
         }
       }
     }
