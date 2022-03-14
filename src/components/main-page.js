@@ -17,11 +17,22 @@ function MainPage() {
     const [currentType, setCurrentType] = useState("")
     const [currentId, setCurrentId] = useState("")
     const [currentRarities, setCurrentRarities] = useState([])
+    const [currentSort, setCurrentSort] = useState("Lowest ID")
+
+    const [timer, setTimer] = useState(30)
 
     useEffect(() => {
+        const interval = setInterval(() => {
+            if (timer <= 0) {
+                setTimer(30)
+            } else {
+                setTimer(timer => timer - 1)
+            }
+        }, 1000);
+
         let cardsData = []
         let eggsData = []
-        if (cards.length === 0) {
+        if (timer === 30) {
             for (let i = 0; i < 80; i++) {
                 let rarity = rarities[Math.floor(Math.random() * rarities.length)]
                 let price;
@@ -60,6 +71,20 @@ function MainPage() {
         }
 
         if (tab === "eggs") {
+            switch (currentSort) {
+                case "Lowest ID":
+                    eggsData.sort((a, b) => a.id - b.id)
+                    break;
+                case "Highest ID":
+                    eggsData.sort((a, b) => b.id - a.id)
+                    break;
+                case "Lowest Price":
+                    eggsData.sort((a, b) => a.dollarPrice - b.dollarPrice)
+                    break;
+                default:
+                    eggsData.sort((a, b) => b.dollarPrice - a.dollarPrice)
+                    break;
+            }
             setItems(eggsData.slice(itemOffset, itemOffset + 8));
             setPageCount(Math.ceil(eggsData.length / 8));
             setCurrentItems(eggsData)
@@ -74,11 +99,27 @@ function MainPage() {
             if (currentRarities.length > 0) {
                 newItems = newItems.filter(item => currentRarities.includes(item.rarity))
             }
+            switch (currentSort) {
+                case "Lowest ID":
+                    newItems = newItems.sort((a, b) => a.id - b.id)
+                    break;
+                case "Highest ID":
+                    newItems = newItems.sort((a, b) => b.id - a.id)
+                    break;
+                case "Lowest Price":
+                    newItems = newItems.sort((a, b) => a.dollarPrice - b.dollarPrice)
+                    break;
+                default:
+                    newItems = newItems.sort((a, b) => b.dollarPrice - a.dollarPrice)
+                    break;
+            }
             setCurrentItems(newItems)
             setItems(newItems.slice(itemOffset, itemOffset + 8))
             setPageCount(Math.ceil(newItems.length / 8));
         }
-    }, [itemOffset, tab, currentType, currentRarities])
+
+        return () => clearInterval(interval);
+    }, [itemOffset, tab, currentType, currentRarities, timer])
 
     const changeTab = (tab) => {
         setTab(tab)
@@ -194,6 +235,27 @@ function MainPage() {
         setItems(newItems.slice(itemOffset, itemOffset + 8))
     }
 
+    const changeSort = (event) => {
+        setCurrentSort(event.target.value)
+        let newItems = []
+        switch (event.target.value) {
+            case "Lowest ID":
+                newItems = currentItems.sort((a, b) => a.id - b.id)
+                break;
+            case "Highest ID":
+                newItems = currentItems.sort((a, b) => b.id - a.id)
+                break;
+            case "Lowest Price":
+                newItems = currentItems.sort((a, b) => a.dollarPrice - b.dollarPrice)
+                break;
+            default:
+                newItems = currentItems.sort((a, b) => b.dollarPrice - a.dollarPrice)
+                break;
+        }
+        setCurrentItems(newItems)
+        setItems(newItems.slice(itemOffset, itemOffset + 8))
+    }
+
     return (
         <section className="main-page flex-col">
             <div className="tabs flex">
@@ -287,17 +349,17 @@ function MainPage() {
                         <div className="sort flex-col">
                             <label>Sort by</label>
 
-                            <select name="cars" id="cars">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="mercedes">Mercedes</option>
-                                <option value="audi">Audi</option>
+                            <select name="sort" value={currentSort} onChange={changeSort}>
+                                <option value="Lowest ID">Lowest ID</option>
+                                <option value="Highest ID">Highest ID</option>
+                                <option value="Lowest Price">Lowest Price</option>
+                                <option value="Highest Price">Highest Price</option>
                             </select>
                         </div>
 
                         <div className="recharge flex">
                             <img src="/images/autorenew_white.svg" alt="renew" />
-                            <p>30s</p>
+                            <p onClick={() => setTimer(30)}>{timer}s</p>
                         </div>
                     </div>
 
@@ -311,7 +373,7 @@ function MainPage() {
                                         <p className="level">Level: {card.level}</p>
                                     </div>
 
-                                    <img className="pet-img" src="/images/pet.png" alt="pet"/>
+                                    <img className="pet-img" src={`/images/${card.type}.png`} alt="pet"/>
 
                                     <div className="prices flex-col">
                                         <p className="dollar">${card.dollarPrice}</p>
@@ -333,7 +395,7 @@ function MainPage() {
                                         <p>Gunstar Metaverse Mystery Egg #{card.id}</p>
                                     </div>
 
-                                    <img className="pet-img" src="/images/pet.png" alt="pet"/>
+                                    <img className="egg-img" src="/images/egg.png" alt="egg"/>
 
                                     <div className="prices flex-col">
                                         <p className="dollar">${card.dollarPrice}</p>
@@ -352,27 +414,27 @@ function MainPage() {
                                 </div>
                         })}
                     </div>
-                </div>
 
-                <ReactPaginate
-                    previousLabel="<"
-                    nextLabel=">"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    breakLabel="..."
-                    breakClassName="page-item"
-                    breakLinkClassName="page-link"
-                    pageCount={pageCount}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
-                    onPageChange={handlePageClick}
-                    containerClassName="pagination"
-                    activeClassName="active"
-                />
+                    <ReactPaginate
+                        previousLabel="<"
+                        nextLabel=">"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        breakLabel="..."
+                        breakClassName="page-item"
+                        breakLinkClassName="page-link"
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageClick}
+                        containerClassName="pagination"
+                        activeClassName="active"
+                    />
+                </div>
             </div>
         </section>
     );
